@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  title: 'Academia REST Service'
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080/api'
+tags:
+  - name: Modules
+paths:
+  /modules:
+    get:
+      summary: 'Get all modules'
+      description: 'Returns the number and title of all modules'
+      tags:
+        - Modules
+      responses:
+        200:
+          description: 'information of all modules'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleDto'
+              example:
+                - nr: 'BTI1121'
+                  name: 'Software Engineering'
+                - nr: 'BTI1301'
+                  name: 'Web Programming'
+                - nr: 'BTI1311'
+                  name: 'Databases'
+        401:
+          description: 'user not authenticated'
+        406:
+          description: 'unsupported accept type'
+      security:
+        - BasicAuth: []
+    post:
+      summary: 'Add a module'
+      description: 'Add a new module with the given data'
+      tags:
+        - Modules
+      requestBody:
+        description: 'the data of the module to be added'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+            example:
+              nr: 'BTI3021'
+              name: 'Project and Training 3'
+              description: 'Description goes here...'
+      responses:
+        201:
+          description: 'the data of the added module'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+              example:
+                nr: 'BTI3021'
+                name: 'Project and Training 3'
+                description: 'Description goes here...'
+        400:
+          description: 'invalid module data'
+        401:
+          description: 'user not authenticated'
+        403:
+          description: 'user not authorized'
+        406:
+          description: 'unsupported accept type'
+        409:
+          description: 'module already exists'
+        415:
+          description: 'unsupported content type'
+      security:
+        - BasicAuth: []
+  /modules/{nr}:
+    get:
+      summary: 'Get a module'
+      description: 'Returns the details of the module with the specified number'
+      tags:
+        - Modules
+      parameters:
+        - name: nr
+          in: path
+          description: 'the number of the module to be retrieved'
+          required: true
+          schema:
+            type: string
+          example: 'BTI3021'
+      responses:
+        200:
+          description: 'the module data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+              example:
+                nr: 'BTI3021'
+                name: 'Project and Training 3'
+                description: 'In this module, you will learn...'
+        401:
+          description: 'user not authenticated'
+        403:
+          description: 'user not authorized'
+        404:
+          description: 'module not found'
+        406:
+          description: 'unsupported accept type'
+      security:
+        - BasicAuth: []
+    put:
+      summary: 'Update a module'
+      description: 'Updates the data of the module with the specified number'
+      tags:
+        - Modules
+      parameters:
+        - name: nr
+          in: path
+          description: 'the number of the module to be updated'
+          required: true
+          schema:
+            type: string
+          example: 'BTI3021'
+      requestBody:
+        description: 'the new data of the module (the number must match the path parameter)'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+            example:
+              nr: 'BTI3021'
+              name: 'Project and Training 3'
+              description: 'In this module, you will learn...'
+      responses:
+        200:
+          description: 'the updated module'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+              example:
+                nr: 'BTI3021'
+                name: 'Project and Training 3'
+                description: 'In this module, you will learn...'
+        400:
+          description: 'invalid module data'
+        401:
+          description: 'user not authenticated'
+        403:
+          description: 'user not authorized'
+        404:
+          description: 'module not found'
+        406:
+          description: 'unsupported accept type'
+        415:
+          description: 'unsupported content type'
+      security:
+        - BasicAuth: []
+    delete:
+      summary: 'Remove a module'
+      description: 'Removes the module with the specified number if possible'
+      tags:
+        - Modules
+      parameters:
+        - name: nr
+          in: path
+          description: 'the number of the module to be removed'
+          required: true
+          schema:
+            type: string
+          example: 'BTI3021'
+      responses:
+        204:
+          description: 'module removed'
+        401:
+          description: 'user not authenticated'
+        403:
+          description: 'user not authorized'
+        404:
+          description: 'module not found'
+      security:
+        - BasicAuth: []
+components:
+  schemas:
+    ModuleDto:
+      type: object
+      properties:
+        nr:
+          type: string
+        name:
+          type: string
+      required:
+        - nr
+        - name
+    Module:
+      type: object
+      properties:
+        nr:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - nr
+        - name
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

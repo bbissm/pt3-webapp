@@ -1,0 +1,48 @@
+stages:
+  - test
+  - build
+  - deploy
+
+verify:
+  stage: test
+  image: maven:3-eclipse-temurin-21-alpine
+  script:
+    - mvn verify
+  artifacts:
+    paths:
+      - target
+
+site:
+  stage: build
+  image: maven:3-eclipse-temurin-21-alpine
+  only:
+    - main
+  script:
+    - mvn site
+  artifacts:
+    paths:
+      - target/site
+
+pages:
+  stage: deploy
+  only:
+    - main
+  script:
+    - mkdir public
+    - cp -v src/etc/*.sql public
+    - cp -v target/*.war public/academia.war
+    - cp -rv target/site/* public
+  artifacts:
+    paths:
+      - public
+
+cache:
+  paths:
+    - .m2/repository
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+variables:
+  MAVEN_OPTS: -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+  SAST_EXCLUDED_PATHS: test, target

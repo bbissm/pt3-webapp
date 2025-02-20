@@ -1,0 +1,13 @@
+<site>
+	<bannerLeft name="Academia"/>
+	<body>
+		<menu name="Product">
+			<item name="Software Documentation" href="software-documentation.html"/>
+		</menu>
+		<menu ref="reports"/>
+	</body>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-fluido-skin</artifactId>
+	</skin>
+</site>
