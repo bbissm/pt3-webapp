@@ -2,12 +2,18 @@ import { UserLogin } from './components/user-login.js';
 import { UserLogout } from "./components/user-logout.js";
 import { ModuleList } from "./components/module-list.js";
 import { ModuleDetail } from "./components/module-detail.js";
+import { ModuleAdd } from "./components/module-add.js";
+import { ModuleRunList } from "./components/module-run-list.js";
+import { ModuleRunDetail } from "./components/module-run-detail.js";
 import { store } from "./store.js";
 
 customElements.define('user-login', UserLogin);
 customElements.define('user-logout', UserLogout);
 customElements.define('module-list', ModuleList);
 customElements.define('module-detail', ModuleDetail);
+customElements.define('module-add', ModuleAdd);
+customElements.define('module-run-list', ModuleRunList);
+customElements.define('module-run-detail', ModuleRunDetail);
 
 export const router = {
     navigate: function(uri) {
