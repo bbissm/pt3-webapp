@@ -2,20 +2,23 @@
 import { service } from '../service.js';
 import { router } from '../router.js';
 export class ModuleDetail extends HTMLElement {
-
-    static #template = `
-		<h1>Module Details</h1>
-		<form></form>
-		<button id="save">Save</button><button id="back">Back</button>
-		<div id="message"></div>
-	`;
-
     async connectedCallback() {
-        this.innerHTML = ModuleDetail.#template;
         let id = this.getAttribute('id');
+        this.innerHTML = `
+            <h1>Module Details</h1>
+            <form></form>
+            <button id="save">Save</button><button id="back">Back</button>
+            <div id="message"></div>
+            <module-run-list id="module-run-list" module-id="${id}"></module-run-list>
+        `;
         let module = await service.getModule(id);
         this.#renderModule(module);
+        this.#updateModuleRunList(id)
 
+    }
+
+    #updateModuleRunList(moduleNr) {
+        this.querySelector('#module-run-list').setAttribute('module-id', moduleNr)
     }
 
     #renderModule(module) {
@@ -35,7 +38,6 @@ export class ModuleDetail extends HTMLElement {
     async #saveModule() {
         let form = document.querySelector('form');
         let module = {nr: form.nr.value, name: form.name.value, description: form.description.value};
-        let message = document.querySelector('#message');
         await service.saveModule(module);
     }
 }
