@@ -31,7 +31,28 @@ export const service = {
     removeModule: async function(nr) {
         let response = await sendRequest('DELETE', `/modules/${nr}`);
         return response.ok;
-    }
+    },
+    getModuleRuns: async function(moduleNr) {
+        /*let response = await sendRequest('GET', `/module-runs?moduleNr=${moduleNr}`);
+        return response.json();*/
+        const moduleRuns = [
+            { id: 1, moduleId: 'BTI1001', startDate: '2021-10-01', endDate: '2022-03-31', lecturer: 'John Doe', room: 'A123', time: 'Mo 10:00-12:00', description: 'This is a test description for module run 1.' },
+            { id: 2, moduleId: 'BTI1011', startDate: '2021-10-01', endDate: '2022-03-31', lecturer: 'Jane Doe', room: 'A124', time: 'Mo 14:00-16:00', description: 'This is a test description for module run 2.' },
+            { id: 3, moduleId: 'BTI1121', startDate: '2021-10-01', endDate: '2022-03-31', lecturer: 'John Doe', room: 'A125', time: 'Tu 10:00-12:00', description: 'This is a test description for module run 3.' },
+            { id: 4, moduleId: 'BTI1301', startDate: '2021-10-01', endDate: '2022-03-31', lecturer: 'Jane Doe', room: 'A126', time: 'Tu 14:00-16:00', description: 'This is a test description for module run 4.' },
+            { id: 5, moduleId: 'BTI1311', startDate: '2021-10-01', endDate: '2022-03-31', lecturer: 'John Doe', room: 'A127', time: 'We 10:00-12:00', description: 'This is a test description for module run 5.' }
+        ];
+        return moduleNr ? moduleRuns.filter(moduleRun => moduleRun.moduleId === moduleNr) : moduleRuns;
+    },
+    getModuleRun: async function(moduleRunId) {
+        /*let response = await sendRequest('GET', `/module-runs/${moduleRunId}`);
+        return response.json();*/
+        return { id: moduleRunId, moduleId: 'BTI1001', startDate: '2021-10-01', endDate: '2022-03-31', lecturer: 'John Doe', room: 'A123', time: 'Mo 10:00-12:00', description: 'This is a test description for module run 1.' };
+    },
+    saveModuleRun: async function(moduleRun) {
+        let response = await sendRequest('PUT', `/module-runs/${moduleRun.id}`, moduleRun);
+        return response.json();
+    },
 };
 
 async function sendRequest(method, path, data = null) {
