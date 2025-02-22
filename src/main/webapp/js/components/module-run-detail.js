@@ -3,19 +3,22 @@ import { router } from '../router.js';
 
 export class ModuleRunDetail extends HTMLElement {
 
-    static #template = `
-		<h1>Module Run Details</h1>
-		<form></form>
-		<button id="save">Save</button><button id="back">Back</button>
-		<div id="message"></div>
-	`;
-
     async connectedCallback() {
-        this.innerHTML = ModuleRunDetail.#template;
+        console.log("ModuleRunDetail connectedCallback")
         let id = this.getAttribute('id');
+        console.log("id: " + id)
         let moduleRun = await service.getModuleRun(id);
-        this.#renderModuleRun(moduleRun);
+        console.log("moduleRun: ",moduleRun)
+        this.innerHTML = `
+            <h1 class="title">Module Run Details</h1> 
+            <form></form>
+            <button id="save">Save</button><button id="back">Back</button>
+            <div id="message"></div>
+            <student-list id="student-list" module-run-id="${moduleRun.id}"></student-list>
+            `
 
+        console.log("this.innerHTML: " + this.innerHTML)
+        this.#renderModuleRun(moduleRun);
     }
 
     #renderModuleRun(moduleRun) {

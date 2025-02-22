@@ -5,6 +5,8 @@ import { ModuleDetail } from "./components/module-detail.js";
 import { ModuleAdd } from "./components/module-add.js";
 import { ModuleRunList } from "./components/module-run-list.js";
 import { ModuleRunDetail } from "./components/module-run-detail.js";
+import { StudentList } from "./components/student-list.js";
+import { GradeList } from "./components/grade-list.js";
 import { store } from "./store.js";
 
 customElements.define('user-login', UserLogin);
@@ -14,6 +16,8 @@ customElements.define('module-detail', ModuleDetail);
 customElements.define('module-add', ModuleAdd);
 customElements.define('module-run-list', ModuleRunList);
 customElements.define('module-run-detail', ModuleRunDetail);
+customElements.define('student-list', StudentList);
+customElements.define('grade-list', GradeList);
 
 export const router = {
     navigate: function(uri) {
