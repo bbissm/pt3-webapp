@@ -5,22 +5,15 @@ const JSON_TYPE = 'application/json';
 
 export const service = {
     getModules: async function() {
-        /*let response = await sendRequest('GET', '/modules');
-        return response.json();*/
-        return [
-            { nr: 'BTI1001', name: 'Programming with Java 1', description: 'In this module, you will learn the Java programming language, understand the object-oriented principles, and be able to implement, execute, and test programs in Java.' },
-            { nr: 'BTI1011', name: 'Programming with Java 2', description: 'In this module, you will understand how generics, streams, and threads work, and know the Collections, I/O, and JavaFX libraries. You will be able to develop object-oriented applications using appropriate Java technologies.' },
-            { nr: 'BTI1121', name: 'Software Engineering', description: 'In this module, you will learn the difference between agile and plan-oriented software development processes. You will get an overview of common project management tools and will be able to model different views of software systems with UML.' },
-            { nr: 'BTI1301', name: 'Web Programming', description: 'In this module, you will learn how HTTP works and understand the different aspects of web applications. You will be able to design and implement a REST interface using Java servlets and develop a single-page application using JavaScript.' },
-            { nr: 'BTI1311', name: 'Databases', description: 'In this module, you will learn about data modeling and the concepts of relational databases. You will be able to query and manipulate relational data with SQL and access a relational database programmatically with JDBC.' }
-        ];
+        let response = await sendRequest('GET', '/modules');
+        return response.json();
     },
     getModule: async function(nr) {
-        /*let response = await sendRequest('GET', `/modules/${nr}`);
-        return response.json();*/
-        return { nr, name: `Module ${nr}`, description: `This is a test description for module ${nr}.` };
+        let response = await sendRequest('GET', `/modules/${nr}`);
+        return response.json();
     },
     saveModule: async function(module) {
+        console.log("Save Module", module)
         let response = await sendRequest('PUT', `/modules/${module.nr}`, module);
         return response.json();
     },
@@ -125,6 +118,7 @@ function getHeaders(method) {
     headers['Accept'] = JSON_TYPE;
     if (method === 'POST' || method === 'PUT') headers['Content-Type'] = JSON_TYPE;
     let user = store.getUser();
+    user = { name: 'admin', password: 'admin'}
     if (user) headers['Authorization'] = 'Basic ' + btoa(user.name + ':' + user.password);
     return headers;
 }

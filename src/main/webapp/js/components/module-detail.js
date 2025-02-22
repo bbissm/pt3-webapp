@@ -26,11 +26,13 @@ export class ModuleDetail extends HTMLElement {
                     <td><textarea name="description" cols="50" rows="5">${module.description}</textarea></td></tr>
             </table>
         `;
-        this.querySelector('#save').onclick = () => this.#saveModule;
+        this.querySelector('#save').onclick = this.#saveModule.bind(this);
+
         this.querySelector('#back').onclick = () =>  router.navigate('module-list');
     }
 
     async #saveModule() {
+        console.log("Save Module");
         let form = document.querySelector('form');
         let module = {nr: form.nr.value, name: form.name.value, description: form.description.value};
         await service.saveModule(module);

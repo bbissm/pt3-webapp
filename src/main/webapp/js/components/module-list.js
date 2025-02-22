@@ -22,7 +22,14 @@ export class ModuleList extends HTMLElement {
         let table = this.querySelector('table');
         modules.forEach(module => {
             let row = document.createElement('tr');
-            row.innerHTML = `<td>${module.nr}</td><td>${module.name}</td><td><a href="#module-detail?id=${module.nr}">Edit</a></td>`;
+            row.innerHTML = `<td>${module.nr}</td><td>${module.name}</td><td><a href="#module-detail?id=${module.nr}">Edit</a></td><td><button class="delete is-red"></button></td>`;
+            row.querySelector('.delete').onclick = async () => {
+                const response = await service.removeModule(module.nr);
+                console.log("Delete Response", response)
+                if(response) {
+                    row.remove();
+                }
+            };
             table.append(row);
         });
     }
