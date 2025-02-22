@@ -1,19 +1,10 @@
-/*
-Modul-ID: Verknüpfung zum Hauptmodul.
-Start- und Enddatum: Wann der Kurs beginnt und endet.
-Lehrkraft/Dozent: Wer den Kurs leitet.
-Teilnehmerliste: Welche Studenten eingeschrieben sind.
-Raum/Ort: Wo der Kurs stattfindet.
-Zeitplan/Sitzungszeiten: Spezifische Zeiten für Kursveranstaltungen.
-Beschreibung: Zusätzliche Informationen zum spezifischen Durchlauf.
- */
 import {router} from '../router.js';
 import {service} from '../service.js';
 
 export class ModuleRunList extends HTMLElement {
 
     static #template = `
-        <h1>Module Run Overview</h1>
+        <h1 class="title">Module Run Overview</h1>
         <a href="#module-list">Back</a>
         <table>
             <tr><th>Module ID</th><th>Start Date</th><th>End Date</th><th>Lecturer</th><th>Room</th><th>Time</th><th>Description</th><th></th></tr>

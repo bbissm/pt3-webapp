@@ -3,13 +3,12 @@ import { router } from '../router.js';
 export class ModuleList extends HTMLElement {
 
     static #template = `
-		<h1>Module Overview</h1>
+		<h1 class="title">Module Overview</h1>
 		<a href="/">Back</a>
 		<table>
             <tr><th>Number</th><th>Name</th><th></th></tr>
         </table>
         <button id="add">Add</button>
-        
 	`;
 
     async connectedCallback() {
@@ -28,10 +27,4 @@ export class ModuleList extends HTMLElement {
         });
     }
 
-    #renderReservation(reservation) {
-        let row = document.createElement('tr');
-        console.log("Reservation", reservation)
-        row.innerHTML = `<td>${reservation.date}</td><td>${reservation.room}</td><td><button class="primary deleteReservation" value="${reservation.nr}">Delete</button></td>`;
-        return row;
-    }
 }

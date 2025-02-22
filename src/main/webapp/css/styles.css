@@ -9,14 +9,9 @@ a {
 body {
 	padding: 20px;
 	margin: auto;
-	max-width: 800px;
 }
-header, main, footer {
+main, footer {
 	margin: 0 0 50px 0;
-}
-div {
-	margin: 20px 0;
-	padding: 10px;
 }
 
 table {
@@ -49,4 +44,25 @@ input, textarea, button {
 	background-color: green;
 	color: white;
 	opacity: 0.5;
+}
+
+.is-flex {
+	display: flex;
+	justify-content: space-between;
+}
+.sidebar {
+	width: 30%;
+}
+.main {
+	width: 70%;
+}
+.term {
+	cursor: pointer;
+}
+.error {
+	background-color: red;
+	color: white;
+	opacity: 0.5;
+	width: fit-content;
+	padding: 10px;
 }

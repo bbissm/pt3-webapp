@@ -2,7 +2,7 @@ import {router} from '../router.js';
 import {service} from '../service.js';
 export class ModuleAdd extends HTMLElement {
     static #template = `
-        <h1>Module Add</h1>
+        <h1 class="title">Module Add</h1>
         <form>
             <table>
                 <tr><th>Nr</th><td><input name="nr" required></td></tr>

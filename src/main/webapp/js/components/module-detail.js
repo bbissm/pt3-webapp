@@ -5,7 +5,7 @@ export class ModuleDetail extends HTMLElement {
     async connectedCallback() {
         let id = this.getAttribute('id');
         this.innerHTML = `
-            <h1>Module Details</h1>
+            <h1 class="title">Module Details</h1>
             <form></form>
             <button id="save">Save</button><button id="back">Back</button>
             <div id="message"></div>
@@ -13,12 +13,7 @@ export class ModuleDetail extends HTMLElement {
         `;
         let module = await service.getModule(id);
         this.#renderModule(module);
-        this.#updateModuleRunList(id)
 
-    }
-
-    #updateModuleRunList(moduleNr) {
-        this.querySelector('#module-run-list').setAttribute('module-id', moduleNr)
     }
 
     #renderModule(module) {
